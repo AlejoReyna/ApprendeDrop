@@ -1,8 +1,10 @@
 import 'regenerator-runtime/runtime';
+import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 import React, { useState, useEffect } from 'react';
 import Form from './components/Form';
-import SignIn from './components/SignIn';
+import Test from './components/Test/Test';
 import Messages from './components/Messages';
+import NearCourse from './components/NearCourse/NearCourse';
 
 const App = ({ isSignedIn, guestBook, wallet }) => {
   const [messages, setMessages] = useState([]);
@@ -11,7 +13,7 @@ const App = ({ isSignedIn, guestBook, wallet }) => {
     guestBook.getMessages().then(setMessages);
   }, []);
 
-  onSubmit = async (e) => {
+  const onSubmit = async (e) => {
     e.preventDefault();
 
     const { fieldset, message, donation } = e.target.elements;
@@ -32,29 +34,26 @@ const App = ({ isSignedIn, guestBook, wallet }) => {
 
   const signOut = () => { wallet.signOut() }
 
+
   return (
-    <main>
-      <table>
-        <tr>
-          <td><h1>📖 NEAR Guest Book</h1></td>
-          <td>{ isSignedIn
-          ? <button onClick={signOut}>Log out</button>
-          : <button onClick={signIn}>Log in</button>
-        }</td>
-        </tr>
-      </table>
+   
+      <main>
+        { isSignedIn
+            ? <button className="old-button" onClick={signOut}>Log out</button>
+            : <button className="new-button" onClick={signIn}>Log In</button>
+          }
 
-      <hr />
-      { isSignedIn
-        ? <Form onSubmit={onSubmit} currentAccountId={wallet.accountId} />
-        : <SignIn/>
-      }
+     
+            { isSignedIn
+              ? <Form onSubmit={onSubmit} currentAccountId={wallet.accountId} />
+              : <Test signIn={signIn} isSignedIn={isSignedIn}/>
+            }
 
-      <hr />
+            { !!messages.length && <Messages messages={messages}/> }
+          
+      </main>
 
-      { !!messages.length && <Messages messages={messages}/> }
-
-    </main>
+ 
   );
 };
 

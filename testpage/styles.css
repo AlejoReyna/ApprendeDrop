@@ -1,0 +1,28 @@
+/** nav style  **/
+
+.brand-container {
+    border: 1px solid black;
+    width: 200px;
+}
+
+nav {
+    background-color: blue;
+    margin-left: 250px;
+}
+
+.card {
+    width: 250px;
+    height: 150px;
+    margin-left: 20px;
+}
+
+.title {
+    margin-left: 30px;
+}
+
+footer {
+    background-color: black;
+    height: 100px;
+    margin-top: 20px;
+    color: white;
+}
